@@ -3,3 +3,6 @@ Query2 - All stories and comments relating to global warming
 Query3 - All Comments pertaining to entertainment 
 Query4 - All storires with story title 'Web Desining"
 Query5 - Stories that are dead but not deleted
+
+Complex query
+List of comments by author name, by creating a set for comments under the main table with comment ID n Comment
