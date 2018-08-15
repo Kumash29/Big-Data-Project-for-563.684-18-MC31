@@ -1,56 +1,40 @@
 Data Model 
-
 Query 1 – List of comments by author name, by creating a UDT for comment text
-
-TYPE author 
-
-Column name	Type
-Author ID	int
-Author Name	varchar
-
 TABLE comments 
-
 Column name	Type
-Comment ID	int
 Comment time	date
-Comment 	Text
+Comment 	Map(int,Text)
+Story		Map(int,Text)
 Ranking		int
-Authors	Map<Author>
+Author		Text
 
+Primary key (Author)
 
 Query 2 –  Listing the count of stories/ comments from an author
 
-TYPE author 
-
-Column name	Type
-Author ID	int
-Author Name	varchar
-
 TABLE Stories_Comments
-
 Column name	Type
 Unique ID	int
 Time		date
 Body 		Text
 Type		Text
-Authors		Map<Author>
+Authors		Text
 
+Primary Key ( Authors, Unique ID)
 
 Query 3 -  Top 50 stories having highest number of descendants
-
 TABLE Stories
-
 Column name	Type
 Story ID	int
 Time		date
 Story		Text
 Author		text
-No_of_Descendants	varchar
+No_of_Descendants	int
+
+Primary Key ( Story ID ,No_of_Descendants)
 
 Query 4 - Top ranked stories/comment
-
 TABLE Stories_Comments
-
 Column name	Type
 Unique ID	int
 Time		date
@@ -58,3 +42,4 @@ Body 		Text
 Ranking		int
 Type		Text
 
+Primary Key ( Unique ID ,Ranking)
