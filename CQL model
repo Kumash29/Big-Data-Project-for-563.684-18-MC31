@@ -1,29 +1,79 @@
+
 CREATE KEYSPACE if not exists Project with replication = {'class':'SimpleStrategy','replication_factor':3};
 
 USE Project;
+
+#Query 1 - Comments/Stories by an author
 
 CREATE TABLE if not exists Comments_Stories
 (author text,
 unique_id int,
 comment_time date,
+title text,
 comment_story text,
 type text,
-ranking int,
 Primary Key(unique_id,author));
 
-CREATE INDEX if not exists on Comments_Stories(author);
+select title,comment_story,type,comment_time from Comments_Stories where author = 'shelly'; 
 
 
-CREATE STORIES if not exists Stories
+
+#Query 2 - Count of Comments by an author
+
+CREATE TABLE if not exists Comments
+(author text,
+unique_id int,
+type text,
+Primary Key(unique_id,author));
+
+select count(unique_id) from Comments group by author;
+
+
+
+
+#Query 3 - Top 50 stories having highest number of descendants
+
+CREATE TABLE if not exists Stories
 (story_id int,
 story_time date,
-story text,
+story_title text,
 author text,
 no_of_descendants int,
 Primary Key(story_id,no_of_descendants));
 
+select story_title,author,story_time from Stories ORDER BY no_of_descendants DESC LIMIT 50;
 
-##Created 2 tables, 3 queries can be executed on first table 
-for last query second table is created.
+
+
+#Query 4 - Top Ranked Stories/Comments
+
+CREATE TABLE if not exists Stories_Comments_Ranking
+(unique_id int,
+ranking int,
+title text,
+type text,
+Primary Key(unique_id,ranking));
+
+select title,type from Stories_Comments_Ranking ORDER BY ranking ASC;
+
+
+
+#Query 5 - Insert value in full table
+
+INSERT INTO test_tbl
+(id,date,body,byuser,dead,deleted,descendants,parent,ranking,score,title ,type,url) VALUES
+(999,
+ '09/10/2018 20:50:06',
+'Hi All',
+'John',
+False,
+False,
+987654321,
+501,
+2,
+'Greetings',
+'Comment',
+'http://www.lifehack.org/articles/productivity/5-ridiculously-easy-ways-to-unblock-writers-block.html') 
+
 
 
